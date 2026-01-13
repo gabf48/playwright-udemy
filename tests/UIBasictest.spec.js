@@ -9,6 +9,9 @@ test.only('Browser Context Playwright test', async ({browser})=>
             await page.locator('#username').fill("rahulshetty")
             await page.locator('#password').fill("learning")
             await page.locator('#signInBtn').click()
+            // wait until this locator shown up page
+            console.log(await page.locator("[style*='block']").textContent());
+            await expect(page.locator("[style*='block']")).toContainText('Incorrect username/password.');
         }); 
 
 
