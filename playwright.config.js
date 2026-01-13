@@ -12,7 +12,10 @@ const config = ({
   },
   reporter: 'html',
   use: {
-    browserName: 'chromium'
+    // browserName: 'webkit', // Safari
+    // browserName: 'firefox',
+    browserName: 'chromium',
+    headless: false
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
   },
 
