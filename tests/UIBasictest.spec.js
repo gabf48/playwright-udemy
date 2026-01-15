@@ -35,6 +35,7 @@ test('UI Controls', async ({page})=>
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const userName = page.locator('#username');
     const singIn = page.locator("#signInBtn");
+    const documentLink = page.locator("[href*='documents-request']")
     const dropdown = page.locator("select.form-control");
     await dropdown.selectOption("consult");
     await page.locator(".radiotextsty").last().click();
@@ -44,6 +45,7 @@ test('UI Controls', async ({page})=>
     await page.locator("#terms").click();
     await page.locator("#terms").uncheck();
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
+    await expect(documentLink).toHaveAttribute('class','blinkingText')
 
     // assertion
     await page.pause();
