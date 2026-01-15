@@ -39,7 +39,12 @@ test('UI Controls', async ({page})=>
     await dropdown.selectOption("consult");
     await page.locator(".radiotextsty").last().click();
     await page.locator("#okayBtn").click();
-    
+    console.log(await page.locator(".radiotextsty").last().isChecked());
+    await expect(page.locator(".radiotextsty").last()).toBeChecked();
+    await page.locator("#terms").click();
+    await page.locator("#terms").uncheck();
+    expect(await page.locator("#terms").isChecked()).toBeFalsy();
+
     // assertion
     await page.pause();
 }); 
