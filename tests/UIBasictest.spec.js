@@ -68,7 +68,6 @@ test('@Child windows hadl', async ({browser})=>
     const arrayText = text.split("@")
     const domain = arrayText[1].split(" ")[0]
     console.log(domain);
-    await page.locator("#username").type(domain);
-    await page.pause();
-    console.log(await page.locator("#username").textContent());
+    await page.locator("#username").fill(domain);
+    console.log(await page.locator("#username").inputValue());
 });
