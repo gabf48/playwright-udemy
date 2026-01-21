@@ -48,7 +48,6 @@ test('UI Controls', async ({page})=>
     await expect(documentLink).toHaveAttribute('class','blinkingText')
 
     // assertion
-    await page.pause();
 }); 
 
 

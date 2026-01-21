@@ -1,6 +1,6 @@
 const {test, expect} = require('@playwright/test');
 
-test.only('Browser Context Playwright test', async ({page})=>
+test('Browser Context Playwright test', async ({page})=>
     {
         const email = "anunturi.user@gmail.com";
         const productName = 'ZARA COAT 3';
@@ -59,5 +59,4 @@ test.only('Browser Context Playwright test', async ({page})=>
         }
         const orderIdDetails = await page.locator(".col-text").textContent();
         expect(orderId.includes(orderIdDetails)).toBeTruthy();
-        await page.pause();
         }); 
