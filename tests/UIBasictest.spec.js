@@ -1,16 +1,17 @@
 const {test, expect} = require('@playwright/test');
 
-test('Browser Context Playwright test', async ({browser})=>
+test('Browser Context-Validating Error login', async ({browser})=>
     {
 
         const context = await browser.newContext();
         const page = await context.newPage();
-        
+        // page.route('**/*.{jpg,png,jpeg}', route => route.abort());
         const userName = page.locator('#username');
         const signIn = page.locator('#signInBtn');
         const password = page.locator('#password');
         const cardTitles = page.locator('.card-body a');
-        
+        page.on('request',request=> console.log(request.url()));
+        page.on('response', response=> console.log(response.url(), response.status()));
         await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
         await userName.fill("rahulshetty")
         await password.fill("learning")
@@ -32,6 +33,7 @@ test('Browser Context Playwright test', async ({browser})=>
 
 test('UI Controls', async ({page})=>
 {
+    // page.route('**/*.{jpg,png,jpeg}', route => route.abort());
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const userName = page.locator('#username');
     const singIn = page.locator("#signInBtn");

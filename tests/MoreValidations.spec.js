@@ -3,6 +3,7 @@ const {test, expect} = require('@playwright/test')
 
 test("Popup validations", async({page})=>
 {
+    // page.route('**/*.{jpg,png,jpeg}', route => route.abort());
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     await expect(page.locator("#displayed-text")).toBeVisible();
     await page.locator("#hide-textbox").click();
