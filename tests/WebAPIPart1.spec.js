@@ -1,4 +1,26 @@
-const {test, expect} = require('@playwright/test');
+const {test, expect, request} = require('@playwright/test');
+const loginPayLoad = {userEmail: "anunturi.user@gmail.com", userPassword: "Parola1993!"}
+
+test.beforeAll( async()=>
+{
+    const apiContext = await request.newContext();
+    const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login",
+    {
+        data: loginPayLoad
+    })//200, 201, 2
+    expect(loginResponse.ok()).toBeTruthy();
+    const loginResponseJson = loginResponse.json();
+    const token = loginResponseJson.token;
+    
+
+});
+
+
+test.beforeEach( ()=>
+{});
+
+
+
 
 test('Client App login', async ({page})=>
     {
