@@ -1,6 +1,6 @@
 const {test, expect, request} = require('@playwright/test');
 const loginPayLoad = {userEmail: "anunturi.user@gmail.com", userPassword: "Parola1993!"}
-
+let token;
 test.beforeAll( async()=>
 {
     const apiContext = await request.newContext();
@@ -9,30 +9,31 @@ test.beforeAll( async()=>
         data: loginPayLoad
     })//200, 201, 2
     expect(loginResponse.ok()).toBeTruthy();
-    const loginResponseJson = loginResponse.json();
-    const token = loginResponseJson.token;
-    
+    const loginResponseJson = await loginResponse.json();
+    token = loginResponseJson.token;
+    console.log(token);
 
 });
 
 
 test.beforeEach( ()=>
-{});
+{})
 
 
 
 
-test('Client App login', async ({page})=>
+test('Place the order', async ({page})=>
     {
+
+
+        page.addInitScript(value => {
+            window.localStorage.setItem('token', value);
+        }, token );
+
         const email = "anunturi.user@gmail.com";
         const productName = 'ZARA COAT 3';
+        await page.goto("https://rahulshettyacademy.com/client/");
         const products = page.locator(".card-body");
-        await page.goto("https://rahulshettyacademy.com/client");
-        await page.locator("#userEmail").fill(email);
-        await page.locator("#userPassword").fill("Parola1993!");
-        await page.locator("[value='Login']").click();
-        await page.waitForLoadState('networkidle');
-        await page.locator(".card-body b").first().waitFor();
         const titles = await page.locator(".card-body b").allTextContents();
         console.log(titles);
         const count = await products.count();
