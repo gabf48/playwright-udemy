@@ -1,4 +1,5 @@
 const {test, expect, request} = require('@playwright/test');
+const {ApiUtils} = require('./utils/APiUtils');
 const loginPayLoad = {userEmail: "anunturi.user@gmail.com", userPassword: "Parola1993!"}
 const orderPayLoad = {orders:[{country:"Romania", productOrderedId:"6960eac0c941646b7a8b3e68"}]}
 
@@ -7,46 +8,16 @@ let orderId;
 
 test.beforeAll( async()=>
 {
-
-    // Login API
     const apiContext = await request.newContext();
-    const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login",
-    {
-        data: loginPayLoad
-    })//200, 201, 2
-    expect(loginResponse.ok()).toBeTruthy();
-    const loginResponseJson = await loginResponse.json();
-    token = loginResponseJson.token;
-    console.log(token);
-
-    // 
-    const orderResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order",
-        {
-        data : orderPayLoad,
-        headers: {
-            'Authorization' : token, 
-            'Content-Type' : 'application/json'
-        },
-        })
-    
-        const orderResponseJson = await orderResponse.json();
-        console.log(orderResponseJson);
-        orderId = orderResponseJson.orders[0];
-
-
+    const apiUtils = new ApiUtils(apiContext, loginPayLoad);
+    apiUtils.createOrder(orderPayLoad);
 });
-
-
-test.beforeEach( ()=>
-{})
-
-
-
 
 test('Place the order', async ({page})=>
     {
 
-
+        const apiUtils = new ApiUtils(apiContext, loginPayLoad);
+        const orederId = createOrder(orderPayLoad);
         page.addInitScript(value => {
             window.localStorage.setItem('token', value);
         }, token );
