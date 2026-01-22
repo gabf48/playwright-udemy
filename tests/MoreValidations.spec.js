@@ -8,4 +8,10 @@ test("Popup validations", async({page})=>
     await page.locator("#hide-textbox").click();
     await expect(page.locator("#displayed-text")).toBeHidden();
 
+    await page.locator("#confirmbtn").click();
+    page.on('dialog', dialog => dialog.dismiss());
+
+    await page.locator("#mousehover").hover();
+
+
 })
