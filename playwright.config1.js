@@ -7,6 +7,7 @@ import { permission } from "node:process";
  */
 const config = {
   testDir: "./tests",
+  retries: 1,
   timeout: 30 * 1000,
   expect: {
     timeout: 5000,
@@ -23,23 +24,23 @@ const config = {
         headless: false,
         screenshot: "on",
         trace: "on", //on,off,retain-on-failure
-        ...devices['iPhone 11']
-      }
+        ...devices["iPhone 11"],
+      },
     },
     {
-      name: 'chrome',
+      name: "chrome",
       use: {
-        browserName: 'chromium',
+        browserName: "chromium",
         headless: false,
-        screenshot: 'on',
-        video: 'retain-on-failure',
+        screenshot: "on",
+        video: "retain-on-failure",
         ignoreHttpsErrors: true,
-        permissions:['geolocation'],
-        trace: 'on', //on,off,retain-on-failure
-        viewport: {width:720, height:720}
+        permissions: ["geolocation"],
+        trace: "on", //on,off,retain-on-failure
+        viewport: { width: 720, height: 720 },
         // ...devices['iPhone 11']
-      }
-    }
+      },
+    },
   ],
 };
 
