@@ -32,10 +32,11 @@ const config = {
         browserName: 'chromium',
         headless: false,
         screenshot: 'on',
+        video: 'retain-on-failure',
         ignoreHttpsErrors: true,
         permissions:['geolocation'],
         trace: 'on', //on,off,retain-on-failure
-        // viewport: {width:720, height:720}
+        viewport: {width:720, height:720}
         // ...devices['iPhone 11']
       }
     }
