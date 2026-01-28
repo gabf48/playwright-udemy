@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from "@playwright/test";
+import { worker } from "node:cluster";
 import { permission } from "node:process";
 
 /**
@@ -8,6 +9,7 @@ import { permission } from "node:process";
 const config = {
   testDir: "./tests",
   retries: 1,
+  workers: 1,
   timeout: 30 * 1000,
   expect: {
     timeout: 5000,
