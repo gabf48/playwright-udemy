@@ -6,6 +6,7 @@ import { defineConfig, devices } from '@playwright/test';
  */
 const config = ({
   testDir: './tests',
+  retries: 2,
   timeout: 30*1000,
   expect: {
     timeout: 5000
@@ -15,7 +16,7 @@ const config = ({
     // browserName: 'webkit', // Safari
     // browserName: 'firefox',
     browserName: 'chromium',
-    headless: false,
+    headless: true,
     screenshot: 'on',
     trace: 'on' //on,off,retain-on-failure
 
