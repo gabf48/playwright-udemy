@@ -1,29 +1,20 @@
-// @ts-check
-import { defineConfig, devices } from '@playwright/test';
-
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
-const config = ({
-  testDir: './tests',
+const config = {
+  testDir: "./tests",
   retries: 2,
-  timeout: 30*1000,
+  timeout: 30 * 1000,
   expect: {
-    timeout: 5000
+    timeout: 5000,
   },
-  reporter: 'html',
+  reporter: [
+    ["html"],
+    ["list"],
+    ["allure-playwright", { outputFolder: "allure-results", detail: true }],
+  ],
   use: {
-    // browserName: 'webkit', // Safari
-    // browserName: 'firefox',
-    browserName: 'chromium',
+    browserName: "chromium",
     headless: true,
-    screenshot: 'on',
-    trace: 'on' //on,off,retain-on-failure
-
+    screenshot: "on",
+    trace: "on", //on,off,retain-on-failure
   },
-
-
-});
-
-
-module.exports = config
+};
+module.exports = config;
