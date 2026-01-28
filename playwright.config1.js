@@ -9,7 +9,7 @@ import { permission } from "node:process";
 const config = {
   testDir: "./tests",
   retries: 1,
-  workers: 1,
+  workers: 3,
   timeout: 30 * 1000,
   expect: {
     timeout: 5000,
