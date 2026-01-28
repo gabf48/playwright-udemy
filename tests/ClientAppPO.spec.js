@@ -6,7 +6,7 @@ const dataset = JSON.parse(
   JSON.stringify(require("../utils/placeorderTestData.json"))
 );
 for (const data of dataset) {
-  test(`Client App login for ${data.productName}`, async ({ page }) => {
+  test(`@Web Client App login for ${data.productName}`, async ({ page }) => {
     const poManager = new POManager(page);
     const loginPage = poManager.getLoginPage();
     await loginPage.goTo();

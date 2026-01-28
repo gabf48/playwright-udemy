@@ -1,7 +1,7 @@
 const {test, expect} = require('@playwright/test')
 
 test.describe.configure({mode:'serial'});
-test("Popup validations", async({page})=>
+test("@Web Popup validations", async({page})=>
 {
     // page.route('**/*.{jpg,png,jpeg}', route => route.abort());
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");

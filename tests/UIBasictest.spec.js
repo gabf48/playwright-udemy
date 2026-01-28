@@ -1,6 +1,6 @@
 const {test, expect} = require('@playwright/test');
 
-test('Browser Context-Validating Error login', async ({browser})=>
+test('@Web Browser Context-Validating Error login', async ({browser})=>
     {
 
         const context = await browser.newContext();
@@ -31,7 +31,7 @@ test('Browser Context-Validating Error login', async ({browser})=>
         }); 
 
 
-test('UI Controls', async ({page})=>
+test('@Web UI Controls', async ({page})=>
 {
     // page.route('**/*.{jpg,png,jpeg}', route => route.abort());
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
