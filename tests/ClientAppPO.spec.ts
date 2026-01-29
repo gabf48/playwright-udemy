@@ -1,7 +1,8 @@
-const { test, expect } = require("@playwright/test");
-const { customtest } = require("../utils/test-base");
+import { test, expect } from "allure-playwright";
+import { customtest } from "../utils_ts/test-base";
+import { POManager } from "../pageobjects_ts/POManager";
 
-const { POManager } = require("../pageobjects/POManager");
+
 const dataset = JSON.parse(
   JSON.stringify(require("../utils/placeorderTestData.json"))
 );
@@ -21,7 +22,8 @@ for (const data of dataset) {
 
     const ordersReviewPage = poManager.getOrdersReviewPage();
     await ordersReviewPage.searchCountryAndSelect("romania", "Romania");
-    const orderId = await ordersReviewPage.SubmitAndGetOrderId();
+    let orderId: any;
+    orderId = await ordersReviewPage.SubmitAndGetOrderId();
     console.log(orderId);
     await dashboardPage.navigateToOrders();
     const ordersHistoryPage = poManager.getOrdersHistoryPage();
