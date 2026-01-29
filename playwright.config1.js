@@ -23,7 +23,7 @@ const config = {
         // browserName: 'webkit', // Safari
         // browserName: 'firefox',
         browserName: "webkit",
-        headless: false,
+        headless: true,
         screenshot: "on",
         trace: "on", //on,off,retain-on-failure
         ...devices["iPhone 11"],
