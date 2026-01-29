@@ -1,46 +1,43 @@
 const {When, Then, Given } = require('@cucumber/cucumber')
 const {POManager} = require('../../pageobjects/POManager');
-const {test, expect, playwright} = require('@playwright/test');
+const {expect} = require('@playwright/test');
+const playwright = require('@playwright/test');
 
 
-Given('a login to Ecommerce application with {username} and {password}', async function (username, password) {
-    const browser = playwright.chromium.launch();
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    const poManager = new POManager(page);
-    const loginPage = poManager.getLoginPage();
+Given('a login to Ecommerce application with {string} and {string}',{timeout: 100*1000}, async function (username, password) {
+    this.browser = await playwright.chromium.launch();
+    this.context = await this.browser.newContext();
+    const page = await this.context.newPage();
+
+    this.poManager = new POManager(page);
+    const loginPage = this.poManager.getLoginPage();
     await loginPage.goTo();
-    await loginPage.validLogin(data.username, data.password);
-    return 'pending';
+    await loginPage.validLogin(username, password);
   });
 
 
-  When('Add {string} to Cart', async function (string) {
-    const dashboardPage = poManager.getDashboardPage();
-    await dashboardPage.searchProductAddCart(data.productName);
-    await dashboardPage.navigateToCart();
-    return 'pending';
+  When('Add {string} to Cart', { timeout: 100 * 1000 }, async function (productName) {
+    this.dashboardPage = this.poManager.getDashboardPage();
+    await this.dashboardPage.searchProductAddCart(productName);
+    await this.dashboardPage.navigateToCart();
   });
 
-  Then('Verify {string} is display in the Cart', async function (string) {
-    const cartPage = poManager.getCartPage();
-    await cartPage.VerifyProductIsDisplayed(data.productName);
+  Then('Verify {string} is display in the Cart', async function (productName) {
+    const cartPage = this.poManager.getCartPage();
+    await cartPage.VerifyProductIsDisplayed(productName);
     await cartPage.Checkout();
-    return 'pending';
   });
 
   When('Enter valid details and Place the Order', async function () {
-    const ordersReviewPage = poManager.getOrdersReviewPage();
-    await ordersReviewPage.searchCountryAndSelect("romania", "Romania");
-    const orderId = await ordersReviewPage.SubmitAndGetOrderId();
-    console.log(orderId);
-    return 'pending';
+    this.ordersReviewPage = this.poManager.getOrdersReviewPage();
+    await this.ordersReviewPage.searchCountryAndSelect("romania", "Romania");
+    this.orderId = await this.ordersReviewPage.SubmitAndGetOrderId();
+    console.log(this.orderId);
   });
 
   Then('Verify order in present in the OrderHistory', async function () {
-    await dashboardPage.navigateToOrders();
-    const ordersHistoryPage = poManager.getOrdersHistoryPage();
-    await ordersHistoryPage.searchOrderAndSelect(orderId);
-    expect(orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
-    return 'pending';
+    await this.dashboardPage.navigateToOrders();
+    const ordersHistoryPage = this.poManager.getOrdersHistoryPage();
+    await ordersHistoryPage.searchOrderAndSelect(this.orderId);
+    expect(this.orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
   });
