@@ -1,6 +1,15 @@
-const { expect } = require("@playwright/test");
+import { test, expect, Locator, Page } from "@playwright/test";
 export class OrdersReviewPage {
-  constructor(page) {
+page : Page;
+country: Locator;
+dropdown: Locator;
+emailId: Locator;
+submit: Locator;
+orderConfirmationText: Locator;
+orderId: Locator;
+
+
+  constructor(page:Page) {
     this.page = page;
     this.country = page.locator("[placeholder*='Country']");
     this.dropdown = page.locator(".ta-results");
@@ -10,12 +19,13 @@ export class OrdersReviewPage {
     this.orderId = page.locator(".em-spacer-1 .ng-star-inserted");
   }
 
-  async searchCountryAndSelect(countryCode, countryName) {
+  async searchCountryAndSelect(countryCode: string, countryName: string) {
     await this.country.type(countryCode, { delay: 100 });
     await this.dropdown.waitFor();
     const optionsCount = await this.dropdown.locator("button").count();
     for (let i = 0; i < optionsCount; i++) {
-      const text = await this.dropdown.locator("button").nth(i).textContent();
+      let text: any;
+      text = await this.dropdown.locator("button").nth(i).textContent();
       if (text.trim() === countryName) {
         await this.dropdown.locator("button").nth(i).click();
         break;
@@ -23,7 +33,7 @@ export class OrdersReviewPage {
     }
   }
 
-  async VerifyEmailId(username) {
+  async VerifyEmailId(username: string) {
     await expect(this.emailId).toHaveText(username);
   }
 

@@ -1,12 +1,21 @@
+import { test, expect, Locator, Page } from "@playwright/test";
+
 export class DashboardPage {
-  constructor(page) {
+
+  page:Page;
+  products: Locator;
+  productsText: Locator;
+  cart: Locator;
+  orders: Locator;
+
+  constructor(page:Page) {
     this.products = page.locator(".card-body");
     this.productsText = page.locator(".card-body b");
     this.cart = page.locator("[routerlink*='cart']");
     this.orders = page.locator("button[routerlink*='myorders']");
   }
 
-  async searchProductAddCart(productName) {
+  async searchProductAddCart(productName:string) {
     const titles = await this.productsText.allTextContents();
     console.log(titles);
     const count = await this.products.count();

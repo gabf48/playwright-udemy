@@ -14,7 +14,7 @@ export class POManager
   ordersHistoryPage : OrdersHistoryPage;
   ordersReviewPage: OrdersReviewPage;
 
-  constructor(page:any) {
+  constructor(page:Page) {
     this.page = page;
     this.loginPage = new LoginPage(this.page);
     this.dashboardPage = new DashboardPage(this.page);
