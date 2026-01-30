@@ -10,9 +10,16 @@ class CartPage {
   }
 
   async VerifyProductIsDisplayed(productName) {
-    await this.cartProducts.waitFor();
-    const bool = await this.getProductLocator(productName).isVisible();
-    expect(bool).toBeTruthy();
+    try {
+        await this.page.waitForLoadState('domcontentloaded'); // Ensure the page is loaded
+        await this.cartProducts.waitFor({ timeout: 10000 }); // Wait with a timeout
+        const productLocator = this.getProductLocator(productName);
+        await productLocator.waitFor({ timeout: 10000 }); // Wait for the specific product
+        const isVisible = await productLocator.isVisible();
+        expect(isVisible).toBeTruthy();
+    } catch (error) {
+        throw new Error(`Product '${productName}' not found or took too long to appear: ${error.message}`);
+    }
   }
 
   async Checkout() {

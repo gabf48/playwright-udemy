@@ -34,5 +34,9 @@ test("Screenshot & Visual comparision", async({page})=>
 
 test('visual', async({page})=>{
     await page.goto("https://www.google.com/");
-    expect(await page.screenshot()).toMatchSnapshot('landing.png');
-})
+    const screenshot = await page.screenshot();
+    expect(screenshot).toMatchSnapshot({
+        name: 'landing.png',
+        threshold: 0.1 // Allowing a 10% difference
+    });
+});

@@ -62,7 +62,9 @@ test('Upload download excel validation', async ({ page }) => {
     // await page.locator('input[type="file"]').click();
     await page.locator('input[type="file"]').setInputFiles(filePath);
     const textlocator = await page.getByText(textSearch);
-    const desireRow = await page.getByRole('row').filter({has:textlocator})
-    await expect(desireRow.locator("#cell-4-undefined")).toContainText(updateValue);
+    const desireRow = await page.getByRole('row').filter({
+        has: page.locator(`text=${textSearch}`) // Correcting the locator format
+    });
+    await expect(desireRow.locator("#cell-4-undefined")).toContainText(updateValue.toString());
     
 })
